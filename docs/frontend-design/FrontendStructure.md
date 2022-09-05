@@ -2,19 +2,17 @@
 
 A frontend consists of these parts:
 
-| General parts/files   | Superclass                | Function                                         | How to get there                                            | 
-|-----------------------|---------------------------|--------------------------------------------------|-------------------------------------------------------------|
-| Language class        | `de.jplag.Language`       | access point for the frontend                    | copy with small adjustments                                 |
-| `pom.xml`             | -                         | Maven submodule descriptor                       | copy with small adjustments;<br>add dependencies for parser |
-| `README.md`           | -                         | documentation for the frontend                   | copy for consistent structure; adjust from there            |
-| Token class           | `de.jplag.Token`          | contains constructor(s) and `type2string` method | copy constructors, **implement `type2string` new**          |
-| TokenConstants class  | `de.jplag.TokenConstants` | contains constants used as token types           | **implement new**                                           |
-
-| Parser technology <br>specific parts/files | Superclass                | Function                           | How to get there      | 
-|--------------------------------------------|---------------------------|------------------------------------|-----------------------|
-| Lexer and Parser                           | -                         | transform code into AST            | depends on technology |
-| ParserAdapter class                        | `de.jplag.AbstractParser` | sets up Parser and calls Traverser | depends on technology |
-| Traverser/<br>TraverserListener classes    | -                         | creates tokens traversing the AST  | depends on technology |
+| Component/Class                         | Superclass                | Function                                         | How to get there                                            | 
+|-----------------------------------------|---------------------------|--------------------------------------------------|-------------------------------------------------------------|
+| Language class                          | `de.jplag.Language`       | access point for the frontend                    | copy with small adjustments                                 |
+| `pom.xml`                               | -                         | Maven submodule descriptor                       | copy with small adjustments;<br>add dependencies for parser |
+| `README.md`                             | -                         | documentation for the frontend                   | copy for consistent structure; adjust from there            |
+| Token class                             | `de.jplag.Token`          | contains constructor(s) and `type2string` method | copy constructors, **implement `type2string` new**          |
+| TokenConstants class                    | `de.jplag.TokenConstants` | contains constants used as token types           | **implement new**                                           |
+|                                         |                           |                                                  |
+| Lexer and Parser                        | -                         | transform code into AST                          | depends on technology                                       |
+| ParserAdapter class                     | `de.jplag.AbstractParser` | sets up Parser and calls Traverser               | depends on technology                                       |
+| Traverser/<br>TraverserListener classes | -                         | creates tokens traversing the AST                | depends on technology                                       |
 
 For example, if ANTLR is used, the setup is as follows:
 

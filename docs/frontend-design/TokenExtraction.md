@@ -96,30 +96,7 @@ public void exitIfStatement(IfStatementContext context) {
 
 The management of the context makes the listener much more complicated to read and maintain.
 
-### Approach 3: Add tokens out of order and sort afterwards
 
-(untested)
-
-It is not required that the token list is sorted by position in the code. Adding tokens in the wrong order can even be of good use, see "Preventing simple attacks" below. Generally, however, the token list should be ordered to ensure consistency.
-
-You may solve the problem of ambiguity by assigning tokens in the next higher context. For this, you search the list of children of the current subtree for the delimiters of the part in question, and assign the token from here. After that, the subtrees are parsed and more tokens may be added. Sort the token list in the end to restore the correct order of tokens.
-
-```java
-@Override
-public void enterIfStatement(IfStatementContext context) {
-    addToken(IF_STATEMENT, context);
-    
-    // fourth terminal in this rule: 'if' '(' <condition> ')' '{' <statements> '}' 
-    ParserRuleContext bodyBegin = context.getChild(TerminalNode.class, 3);
-    addToken(IF_BODY_BEGIN, bodyBegin);
-
-    // fifth terminal in this rule: 'if' '(' <condition> ')' '{' <statements> '}'
-    ParserRuleContext bodyEnd = context.getChild(TerminalNode.class, 4);
-    addToken(IF_BODY_BEGIN, bodyBegin);
-    
-    // after this method, the condition and statements are traversed. 
-}
-```
 
 Notes: 
 - If there are optional parts in the grammar rule, the index of terminals may not be static. A more sophisticated search method may be necessary, possibly using the text content of the child nodes (`ParserRuleContext::getText`).
