@@ -3,15 +3,14 @@
 Apart from extracting the tokens correctly, the task of deciding which syntactical elements should be assigned a token is the essential part when designing a frontend.<br>
 This guideline is solely based on experience and intuition – this "worked well" so far. More research might hint towards a more systematic process of token selection.
 
-The goal of the abstraction is to create a token list that is – to some degree –
+The goal of the abstraction is to create a token list that is
  - _accurate_: a fair representation of the code as input to the comparison algorithm
  - _consistent per se_: insensitive to small changes in the code that might obfuscate plagiarism; constructs are represented equally throughout the file
- - _readable_ for humans, especially maintainers
- - _consistent_ with the output of other frontends
+ - _consistent_ with the output of other trusted frontends—only to the extent that their respective languages are comparable, naturally. 
 
 To create a set of tokens in line with these objectives, we offer the tips below.
 
-### Quick word on Notation
+### Quick Word on Notation
 
 Elements with `BIG_AND_FAT` text represent tokens, while elements in lowercase surrounded by `<angle-brackets>` represent subexpressions that may produce any number of tokens themselves.<br>
 ? marks optional parts which may occur zero or one times, * marks elements that may occur any number of times.
