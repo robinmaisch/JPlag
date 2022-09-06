@@ -24,9 +24,9 @@ Additional tokens may make be needed in certain locations, like optional parts.
 
 | Expression type    | #expressions | #tokens | Example code and tokenization pattern                                                                                                                               |
 |--------------------|--------------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| _loop_ (Rust)      | 1            | 2       | `loop { print(1); }`<p></p>`LOOP{` `<statements>` `}LOOP`                                                                                                           |
-| _if_ (C)           | 2            | 3       | `if (true) { printf(1); } `<p></p>`IF` `<condition>` `IF{` `<statements>` `}IF`                                                                                     |
-| _do-while_ (C)     | 2            | 3       | `do { printf(1) } while (true);`<p></p>`DO{` `<statements>` `}DO-WHILE(` `<condition>` `)WHILE`<br>alt.: `DO{` `<statements>` `}DO` `WHILE(` `<condition>` `)WHILE` |
+| _loop_ (Rust)      | 1            | 2       | `loop { println!("{}", 1) }`<p></p>`LOOP{` `<statements>` `}LOOP`                                                                                                           |
+| _if_ (C)           | 2            | 3       | `if (true) { printf("1"); } `<p></p>`IF` `<condition>` `IF{` `<statements>` `}IF`                                                                                     |
+| _do-while_ (C)     | 2            | 3       | `do { printf("1") } while (true);`<p></p>`DO{` `<statements>` `}DO-WHILE(` `<condition>` `)WHILE`<br>alt.: `DO{` `<statements>` `}DO` `WHILE(` `<condition>` `)WHILE` |
 | Ternary – _?:_ (C) | 3            | 4       | `true ? 1 : 0`<p></p>`COND(` `<condition>` `IF_TRUE:` `<expression>` `IF_FALSE:` `<expression>` `)COND`                                                             |
 
 In the do-while example above, the `}DO-WHILE(` marks the end of the loop block and the beginning of the condition expression at once. For the sake of having a designated token for the ending of the loop block, a possible alternative tokenization with an extra token is given.     
@@ -40,11 +40,11 @@ Note: If lists of the same type are nested, the end of the inner list may become
 
 5) For _optional_ subtrees, a single token may suffice to indicate that it occurred. 
 
-| Optional expression type                   | #expressions | #tokens | Example code and tokenization pattern                                                                                                |
-|--------------------------------------------|--------------|---------|--------------------------------------------------------------------------------------------------------------------------------------|
-| Class declaration: generic type parameters | _n_ + 1      | _n_ + 2 | `class Map<K,V> { ... }`<p></p>`CLASS` (`TYPE_PARAM`)* `CLASS{` `<body>` `}CLASS`                                                    |
-| Method invocation: arguments               | _n_          | _n_ + 1 | `printf("%d: %s", 1, "one");`<p></p>`APPLY` (`ARG` `<expression>`)*                                                                  |
-| _if_ statement: _else_ block               | 2 (+ 1)      | 3 (+ 2) | `if (true) { printf(1); } else { printf(0); }`<p></p>`IF` `<condition>` `IF{` `<statements>` `}IF` (`ELSE{` `<statements>` `}ELSE`)? |
+| Optional expression type                   | #expressions | #tokens | Example code and tokenization pattern                                                                                                    |
+|--------------------------------------------|--------------|---------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Class declaration: generic type parameters | _n_ + 1      | _n_ + 2 | `class Map<K,V> { ... }`<p></p>`CLASS` (`TYPE_PARAM`)* `CLASS{` `<body>` `}CLASS`                                                        |
+| Method invocation: arguments               | _n_          | _n_ + 1 | `printf("%d: %s", 1, "one");`<p></p>`APPLY` (`ARG` `<expression>`)*                                                                      |
+| _if_ statement: _else_ block               | 2 (+ 1)      | 3 (+ 2) | `if (true) { printf("1"); } else { printf("0"); }`<p></p>`IF` `<condition>` `IF{` `<statements>` `}IF` (`ELSE{` `<statements>` `}ELSE`)? |
 
 
 6) Keywords that influence the control flow receive a token, for example
